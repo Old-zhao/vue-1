@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .d {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            margin: 3px;
+        }
+
+        .active {
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 插入数据 -->
+        <div>{{ msg }}</div>
+        <!-- 插入文本 -->
+        <div v-text="ht"></div>
+        <!-- 插入标签 -->
+        <div v-html="ht"></div>
+        <!-- v-on / @  可以监听js中的所有事件 -->
+        <button v-on:click="handlerClick">显示/隐藏</button>
+        <!-- v-show 直接被渲染，并且通过css属性进行切换 -->
+        <div class="d" v-show="isShow">show</div>
+        <!-- v-if 是惰性的，初始渲染为假时，什么也不做，直到条件为真时，才会开始渲染 -->
+        <div class="d" v-if="isShow">真</div>
+        <!-- v-else 如果v-if中条件为假则显示v-else -->
+        <div class="d" v-else>假</div>
+
+        <button v-on:click="handlerChange">显示隐藏2</button>
+        <!-- v-bind / : 绑定属性，src，tittle等数据 -->
+        <div v-bind:class='{active:isActive}'>bind</div>
+
+        <!-- v-for  循环数据-->
+        <ul v-if="data2.status === 'ok'">
+            <li v-for="(items,index) in data2.users" :key="items.id">
+                <div> id:{{ items.id }} name:{{ items.name }} age:{{ items.age }} </div>
+            </li>
+        </ul>
+
+        <!-- v-for  循环对象-->
+        <ul>
+            <li v-for="(value,key) in obj" :key="key">
+                {{ key }} {{value}}
+            </li>
+        </ul>
+
+
+
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: "数据驱动",
+                    ht: "<h4>这是插入的标签</h4>",
+                    isShow: true,
+                    isActive: true,
+                    data2: {
+                        status: "ok",
+                        users: [
+                            { id: 1, name: "z", age: 19 },
+                            { id: 2, name: "x", age: 20 },
+                            { id: 3, name: "c", age: 21 }
+                        ]
+                    },
+                    obj: {
+                        name: 'zhao',
+                        age: 18,
+                        sex: "male"
+                    }
+                }
+            },
+            methods: {
+                handlerClick() {
+                    this.isShow = !this.isShow
+
+                },
+                handlerChange() {
+                    this.isActive = !this.isActive
+                }
+
+            }
+        })
+    </script>
+</body>
+
+
+
+
+
+
+
+</html>
