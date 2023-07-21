@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        .active {
+            width: 100%;
+            height: 937px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="active">
+            1
+        </div>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                array: [
+                    'http://www.reflynet.com/static/img/1-0.9124ef0.jpg',
+                    'http://www.reflynet.com/static/img/1-1.26b0edf.jpg',
+                    'http://www.reflynet.com/static/img/1-2.9ed7114.jpg'
+                ],
+                index: 0
+            }
+        },
+        methods: {
+
+        },
+        created() {
+            // ajax请求方式
+            $.ajax({
+                url: 'https://api.luffycity.com/api/v1/course/category/actual/?courseType=actual',
+                type: "get",
+                headers: {
+                    'Access-Control-Allow-Origin': 'www.reflynet.com'
+                },
+                success: function (data) {
+                    if (data.code === 0) {
+                        content = data.data
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+        }
+    })
+</script>
+
+</html>
